@@ -159,7 +159,7 @@
     .confetti {
       position: absolute;
       font-size: 16px;
-      animation: fall 3.5s linear forwards;
+      animation: fall 5.5s linear forwards;
       pointer-events: none;
     }
 
@@ -199,7 +199,8 @@
   <div class="message">
     Mom,<br><br>
     You are the heart of our home and the reason for so many smiles.  
-    Thank you for your endless love, patience, and care. May your day be as wonderful as you are. Baraka na fanaka tele.  
+    Thank you for your endless love, patience, and care. May your day be as wonderful as you are. 
+    Baraka na fanaka tele.  
     I love you endlessly 💕<br><br>
     — Rebecca
   </div>
@@ -210,8 +211,6 @@
     <div class="gallery-grid">
       <img src="pic1.jpeg" onclick="openZoom(this.src)">
       <img src="pic2.jpeg" onclick="openZoom(this.src)">
-      <img src="pic3.jpeg" onclick="openZoom(this.src)">
-    </div>
   </div>
 </div>
 
@@ -257,11 +256,11 @@
 
   function openZoom(src) {
     document.getElementById("zoomImg").src = src;
-    document.getElementById("zoomOverlay").style.display = "flex";
+    document.getElementById("zoomOverlay").classList.add("active");
   }
 
   function closeZoom() {
-    document.getElementById("zoomOverlay").style.display = "none";
+    document.getElementById("zoomOverlay").classList.remove("active");
   }
 </script>
 
