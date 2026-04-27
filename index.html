@@ -3,24 +3,35 @@
 <head>
   <title>For Mom 💖</title>
 
+  <!-- 📱 Mobile responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
       height: 100vh;
       overflow: hidden;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ffd1dc, #ffeff5);
+      background: url("background.jpeg") no-repeat center center/cover;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Floating hearts */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 0;
+    }
+
+    /* ❤️ Floating hearts */
     .heart {
       position: absolute;
       color: rgba(233, 30, 99, 0.6);
       animation: floatUp 6s linear infinite;
-      font-size: 20px;
+      z-index: 1;
     }
 
     @keyframes floatUp {
@@ -29,7 +40,7 @@
       100% { transform: translateY(-10vh); opacity: 0; }
     }
 
-    /* Envelope */
+    /* 📩 Envelope */
     .envelope {
       width: 320px;
       height: 200px;
@@ -38,6 +49,7 @@
       border-radius: 10px;
       cursor: pointer;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      z-index: 2;
       transition: transform 0.5s ease;
     }
 
@@ -46,23 +58,20 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 0;
-      height: 0;
       border-left: 160px solid transparent;
       border-right: 160px solid transparent;
       border-top: 100px solid #ff80aa;
     }
 
-    .open {
-      transform: scale(0.9);
-    }
+    .open { transform: scale(0.9); }
 
-    /* Card */
+    /* 💌 Card */
     .card {
       display: none;
       background: white;
       width: 380px;
-      padding: 25px;
+      max-width: 92vw;
+      padding: 20px;
       border-radius: 18px;
       text-align: center;
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
@@ -71,13 +80,11 @@
       overflow-y: auto;
     }
 
-    h1 {
-      color: #e91e63;
-    }
+    h1 { color: #e91e63; font-size: 22px; }
 
     .photo {
-      width: 150px;
-      height: 150px;
+      width: 140px;
+      height: 140px;
       object-fit: cover;
       border-radius: 50%;
       border: 5px solid #ff69b4;
@@ -85,43 +92,28 @@
     }
 
     .message {
-      margin-top: 10px;
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.6;
       color: #444;
     }
 
-    /* Gallery */
-    .gallery {
-      margin-top: 20px;
-    }
-
-    .gallery h2 {
-      color: #e91e63;
-    }
-
+    /* 🖼 Gallery */
     .gallery-grid {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
     }
 
     .gallery-grid img {
-      width: 90px;
-      height: 90px;
+      width: 85px;
+      height: 85px;
       object-fit: cover;
       border-radius: 12px;
       border: 3px solid #ff69b4;
-      cursor: pointer;
-      transition: transform 0.3s ease;
     }
 
-    .gallery-grid img:hover {
-      transform: scale(1.08);
-    }
-
-    /* FULL SCREEN LIGHTBOX */
+    /* 🔍 Zoom */
     .zoom-overlay {
       position: fixed;
       inset: 0;
@@ -130,62 +122,74 @@
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      animation: fadeIn 0.2s ease;
     }
 
-    .zoom-overlay.active {
-      display: flex;
-    }
+    .zoom-overlay.active { display: flex; }
 
     .zoom-overlay img {
       max-width: 95vw;
       max-height: 95vh;
       border-radius: 10px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-      animation: popIn 0.25s ease;
     }
 
-    @keyframes popIn {
-      from { transform: scale(0.85); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Burst */
-    .burst {
+    /* 🎉 Confetti */
+    .confetti, .cake {
       position: absolute;
-      font-size: 20px;
-      animation: burst 1s ease-out forwards;
       pointer-events: none;
     }
 
-    @keyframes burst {
-      0% { transform: scale(0); opacity: 1; }
-      100% { transform: scale(2) translateY(-100px); opacity: 0; }
+    /* 🎂 Falling cake animation */
+    .cake {
+      font-size: 24px;
+      animation: fallCake 4s linear forwards;
     }
 
-    /* Confetti */
-    .confetti {
-      position: absolute;
-      font-size: 16px;
-      animation: fall 2.5s linear forwards;
-      pointer-events: none;
+    @keyframes fallCake {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
-    @keyframes fall {
-      0% { transform: translateY(-10vh); opacity: 1; }
-      100% { transform: translateY(110vh); opacity: 0; }
+    /* 📱 Mobile tweaks */
+    @media (max-width: 480px) {
+      .envelope {
+        width: 260px;
+        height: 160px;
+      }
+
+      .envelope:before {
+        border-left: 130px solid transparent;
+        border-right: 130px solid transparent;
+        border-top: 80px solid #ff80aa;
+      }
+
+      h1 { font-size: 20px; }
+
+      .photo {
+        width: 120px;
+        height: 120px;
+      }
+
+      .card {
+        padding: 15px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<!-- Floating hearts -->
+<!-- 🎵 Birthday Song -->
+<audio id="birthdaySong" loop>
+  <source src="birthday song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  window.addEventListener("click", () => {
+    document.getElementById("birthdaySong").play();
+  }, { once: true });
+</script>
+
+<!-- ❤️ Hearts -->
 <script>
   function createHeart() {
     const heart = document.createElement("div");
@@ -200,10 +204,10 @@
   setInterval(createHeart, 300);
 </script>
 
-<!-- Envelope -->
+<!-- 📩 Envelope -->
 <div class="envelope" id="envelope" onclick="openCard()"></div>
 
-<!-- Card -->
+<!-- 💌 Card -->
 <div class="card" id="card">
   <h1>Happy Birthday Mom 💖</h1>
 
@@ -211,9 +215,10 @@
 
   <div class="message">
     Mom,<br><br>
-    You are the heart of our home and my greatest blessing. 
+    You are the heart of our home and my greatest blessing.
     Thank you for your endless love, patience, and care. 
-    May your day be as wonderful as you are. Baraka na fanaka tele.
+    May your day be as wonderful as you are. 
+    Baraka na fanaka tele.
     I love you endlessly 💕<br><br>
     — Rebecca
   </div>
@@ -226,7 +231,7 @@
   </div>
 </div>
 
-<!-- Lightbox -->
+<!-- 🔍 Zoom -->
 <div class="zoom-overlay" id="zoomOverlay" onclick="closeZoom()">
   <img id="zoomImg">
 </div>
@@ -240,18 +245,7 @@
       document.getElementById("card").style.display = "block";
     }, 600);
 
-    // hearts burst
-    for (let i = 0; i < 20; i++) {
-      let b = document.createElement("div");
-      b.className = "burst";
-      b.innerHTML = "💖";
-      b.style.left = Math.random() * 100 + "vw";
-      b.style.top = "60vh";
-      document.body.appendChild(b);
-      setTimeout(() => b.remove(), 1000);
-    }
-
-    // confetti
+    // 🎉 Confetti
     const symbols = ["💖","💗","✨","🌸","💞"];
     for (let i = 0; i < 40; i++) {
       let c = document.createElement("div");
@@ -260,9 +254,21 @@
       c.style.left = Math.random() * 100 + "vw";
       c.style.top = "-10vh";
       c.style.fontSize = Math.random() * 10 + 10 + "px";
-      c.style.animationDuration = (Math.random() * 2 + 2) + "s";
       document.body.appendChild(c);
       setTimeout(() => c.remove(), 3000);
+    }
+
+    // 🎂 Falling cakes
+    for (let i = 0; i < 15; i++) {
+      let cake = document.createElement("div");
+      cake.className = "cake";
+      cake.innerHTML = "🎂";
+      cake.style.left = Math.random() * 100 + "vw";
+      cake.style.top = "-10vh";
+      cake.style.fontSize = (Math.random() * 20 + 20) + "px";
+      cake.style.animationDuration = (Math.random() * 2 + 3) + "s";
+      document.body.appendChild(cake);
+      setTimeout(() => cake.remove(), 4000);
     }
   }
 
