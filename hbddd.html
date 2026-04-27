@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For Mom 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffd1dc, #ffeff5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      color: rgba(233, 30, 99, 0.6);
+      animation: floatUp 6s linear infinite;
+      font-size: 20px;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    /* Envelope */
+    .envelope {
+      width: 320px;
+      height: 200px;
+      background: #ff4d88;
+      position: relative;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transition: transform 0.5s ease;
+    }
+
+    .envelope:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 100px solid #ff80aa;
+    }
+
+    .open {
+      transform: scale(0.9);
+    }
+
+    /* Card */
+    .card {
+      display: none;
+      background: white;
+      width: 340px;
+      padding: 25px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    h1 {
+      color: #e91e63;
+      margin-bottom: 10px;
+    }
+
+    .hint {
+      font-size: 14px;
+      color: #888;
+    }
+
+    /* Image styling */
+    .photo {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #ff69b4;
+      margin: 10px 0;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    /* Heart burst */
+    .burst {
+      position: absolute;
+      font-size: 20px;
+      animation: burst 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes burst {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(2) translateY(-100px); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Floating hearts -->
+<script>
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 10 + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  setInterval(createHeart, 300);
+</script>
+
+<!-- Envelope -->
+<div class="envelope" id="envelope" onclick="openCard()"></div>
+
+<!-- Card -->
+<div class="card" id="card">
+  <h1>Happy Birthday Mom 💖</h1>
+
+  <img src="mom.jpeg" class="photo" alt="Mom">
+
+  <p class="hint">(Click to open your message)</p>
+
+  <div class="message" id="msg">
+    Mom,  
+    <br><br>
+    You are the heart of our home and the reason for so many smiles.  
+    Thank you for your endless love, patience, and care.  
+    Your love makes everything brighter and softer.  
+    <br><br>
+    Thank you for always being my safe place.  
+    I love you endlessly 💕
+    <br><br>
+    — Rebecca
+  </div>
+</div>
+
+<script>
+  function openCard() {
+    document.getElementById("envelope").classList.add("open");
+
+    setTimeout(() => {
+      document.getElementById("envelope").style.display = "none";
+      document.getElementById("card").style.display = "block";
+      document.getElementById("msg").style.display = "block";
+    }, 600);
+
+    // heart burst
+    for (let i = 0; i < 20; i++) {
+      let burst = document.createElement("div");
+      burst.className = "burst";
+      burst.innerHTML = "💖";
+      burst.style.left = Math.random() * 100 + "vw";
+      burst.style.top = "60vh";
+      document.body.appendChild(burst);
+
+      setTimeout(() => burst.remove(), 1000);
+    }
+  }
+</script>
+
+</body>
+</html>
