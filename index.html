@@ -73,15 +73,8 @@
 
     h1 {
       color: #e91e63;
-      margin-bottom: 10px;
     }
 
-    .hint {
-      font-size: 14px;
-      color: #888;
-    }
-
-    /* Main photo */
     .photo {
       width: 150px;
       height: 150px;
@@ -91,7 +84,6 @@
       margin: 10px 0;
     }
 
-    /* Message */
     .message {
       margin-top: 10px;
       font-size: 16px;
@@ -99,22 +91,20 @@
       color: #444;
     }
 
-    /* 🖼️ MEMORY GALLERY */
+    /* Gallery */
     .gallery {
       margin-top: 20px;
     }
 
     .gallery h2 {
-      font-size: 18px;
       color: #e91e63;
-      margin-bottom: 10px;
     }
 
     .gallery-grid {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
       gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .gallery-grid img {
@@ -123,10 +113,36 @@
       object-fit: cover;
       border-radius: 12px;
       border: 3px solid #ff69b4;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
 
-    /* Heart burst */
+    .gallery-grid img:hover {
+      transform: scale(1.08);
+    }
+
+    /* Zoom overlay */
+    .zoom-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .zoom-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Burst */
     .burst {
       position: absolute;
       font-size: 20px;
@@ -165,11 +181,9 @@
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = Math.random() * 20 + 10 + "px";
     heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
   }
-
   setInterval(createHeart, 300);
 </script>
 
@@ -182,22 +196,28 @@
 
   <img src="mom.jpeg" class="photo" alt="Mom">
 
-  <div class="message" id="msg">
+  <div class="message">
     Mom,<br><br>
     You are the heart of our home and the reason for so many smiles.  
-    Thank you for your endless love, patience, and care. 
-    Have a day as wonderful as you are.
+    Thank you for your endless love, patience, and care.  
     I love you endlessly 💕<br><br>
     — Rebecca
   </div>
 
-  <!-- 🖼️ MEMORY GALLERY -->
+  <!-- Gallery -->
   <div class="gallery">
     <h2>Our Memories 💕</h2>
     <div class="gallery-grid">
-      <img src="pic1.jpeg" alt="memory1">
-      <img src="pic2.jpeg" alt="memory2">
+      <img src="pic1.jpeg" onclick="openZoom(this.src)">
+      <img src="pic2.jpeg" onclick="openZoom(this.src)">
+      <img src="pic3.jpeg" onclick="openZoom(this.src)">
     </div>
+  </div>
+</div>
+
+<!-- Zoom viewer -->
+<div class="zoom-overlay" id="zoomOverlay" onclick="closeZoom()">
+  <img id="zoomImg">
 </div>
 
 <script>
@@ -207,7 +227,6 @@
     setTimeout(() => {
       document.getElementById("envelope").style.display = "none";
       document.getElementById("card").style.display = "block";
-      document.getElementById("msg").style.display = "block";
     }, 600);
 
     // heart burst
@@ -222,19 +241,27 @@
     }
 
     // confetti
-    const symbols = ["💖", "💗", "✨", "🌸", "💞"];
+    const symbols = ["💖","💗","✨","🌸","💞"];
     for (let i = 0; i < 40; i++) {
       let confetti = document.createElement("div");
       confetti.className = "confetti";
-      confetti.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+      confetti.innerHTML = symbols[Math.floor(Math.random()*symbols.length)];
       confetti.style.left = Math.random() * 100 + "vw";
       confetti.style.top = "-10vh";
       confetti.style.fontSize = Math.random() * 10 + 10 + "px";
       confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
-
       document.body.appendChild(confetti);
       setTimeout(() => confetti.remove(), 3000);
     }
+  }
+
+  function openZoom(src) {
+    document.getElementById("zoomImg").src = src;
+    document.getElementById("zoomOverlay").style.display = "flex";
+  }
+
+  function closeZoom() {
+    document.getElementById("zoomOverlay").style.display = "none";
   }
 </script>
 
